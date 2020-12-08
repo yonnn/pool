@@ -1,7 +1,5 @@
 *.o
 *.a
-.deps
-.dirstamp
 stratum/stratum
 stratum/blocknotify
 blocknotify/blocknotify
@@ -23,3 +21,4 @@ web/assets/
 .idea/*
 web/yaamp/.idea/
 *.0
+.vscode/

@@ -1,10 +1,6 @@
-[![Build Status](https://travis-ci.org/tpruvot/yiimp.svg?branch=next)](https://travis-ci.org/tpruvot/yiimp)
+[![Build Status](https://travis-ci.org/Kudaraidee/yiimp.svg?branch=next)](https://travis-ci.org/Kudaraidee/yiimp)
 
-#yiimp - yaamp fork - Updated with x16rv2 + x21s + x25x
-
-WARNINGS
-- Use at your own risks.
-- Usage of this software requires abilities with sysadmin, database admin, coin daemons, and sometimes a bit of programming. Running a production pool can literally be more work than a full-time job.
+#yiimp - yaamp fork
 
 Required:
 
@@ -131,15 +127,7 @@ Thanks to globalzon to have released the initial Yaamp source code.
 
 --
 
-Help us on this project with your Donations :
+You can support this project donating to tpruvot :
 
-BTC : 12BxtFhNqC8Lqx7cbgK8xcbUHkk8j9HXbh
-
-ETH : 0xd7641cf199bfe871d4df8ac15d28012031099c51
-
-LTC : LXuxApJHCfvgtR7NbsED8rCWx95jaU3YqU
-
-BCH : qpz7kcvxd03ncfm2t566dtulgqaykns50ucx0k5xpk
-
-RVN : RNU6wfcDD5LGDxKYBPaMBDYPYq4kJep1Fy
+BTC : 1Auhps1mHZQpoX4mCcVL8odU81VakZQ6dR
 

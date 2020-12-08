@@ -1,8 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <sha3/sph_blake.h>
+ #include <sha3/sph_blake.h>
 #include <sha3/sph_bmw.h>
 #include <sha3/sph_groestl.h>
 #include <sha3/sph_jh.h>
@@ -23,8 +22,7 @@
 #include "gost.h"
 #include "Lyra2.h"
 #include "common.h"
-
-enum Algo {
+ enum Algo {
         BLAKE = 0,
         BMW,
         GROESTL,
@@ -46,12 +44,10 @@ enum Algo {
 static void getAlgoString(const uint8_t* prevblock, char *output)
 {
     strcpy(output, "0123456789ABCDEF");
-
-        for(int i = 0; i < 16; i++){
+         for(int i = 0; i < 16; i++){
                 uint8_t b = (15 - i) >> 1; // 16 ascii hex chars, reversed
                 uint8_t algoDigit = (i & 1) ? prevblock[b] & 0xF : prevblock[b] >> 4;
-
-                int offset = algoDigit;
+                 int offset = algoDigit;
                 // insert the nth character at the front
                 char oldVal = output[offset];
                 for(int j=offset; j-->0;) {
@@ -60,12 +56,10 @@ static void getAlgoString(const uint8_t* prevblock, char *output)
                 output[0] = oldVal;
         }
 }
-
-void x21s_hash(const char* input, char* output, uint32_t len) {
+ void x21s_hash(const char* input, char* output, uint32_t len) {
         uint32_t hash[64/4];
         char hashOrder[HASH_FUNC_COUNT + 1] = { 0 };
-
-        sph_blake512_context ctx_blake;
+         sph_blake512_context ctx_blake;
         sph_bmw512_context ctx_bmw;
         sph_groestl512_context ctx_groestl;
         sph_jh512_context ctx_jh;
@@ -85,18 +79,14 @@ void x21s_hash(const char* input, char* output, uint32_t len) {
         sph_tiger_context ctx_tiger;
         sph_gost512_context ctx_gost;
         sph_sha256_context ctx_sha;
-
-        void *in = (void*) input;
+         void *in = (void*) input;
         int size = len;
-
-        getAlgoString(&input[4], hashOrder);
-
-        for (int i = 0; i < 16; i++)
+         getAlgoString(&input[4], hashOrder);
+         for (int i = 0; i < 16; i++)
         {
                 const char elem = hashOrder[i];
                 const uint8_t algo = elem >= 'A' ? elem - 'A' + 10 : elem - '0';
-
-                switch (algo) {
+                 switch (algo) {
                 case BLAKE:
                         sph_blake512_init(&ctx_blake);
                         sph_blake512(&ctx_blake, in, size);
@@ -181,24 +171,18 @@ void x21s_hash(const char* input, char* output, uint32_t len) {
                 in = (void*) hash;
                 size = 64;
         }
-
-        sph_haval256_5_init(&ctx_haval);
+         sph_haval256_5_init(&ctx_haval);
         sph_haval256_5(&ctx_haval,(const void*) hash, 64);
         sph_haval256_5_close(&ctx_haval,hash);
-
-        sph_tiger_init(&ctx_tiger);
+         sph_tiger_init(&ctx_tiger);
         sph_tiger (&ctx_tiger, (const void*) hash, 64);
         sph_tiger_close(&ctx_tiger, (void*) hash);
-
-        LYRA2((void*) hash, 32, (const void*) hash, 32, (const void*) hash, 32, 1, 4, 4);
-
-        sph_gost512_init(&ctx_gost);
+         LYRA2((void*) hash, 32, (const void*) hash, 32, (const void*) hash, 32, 1, 4, 4);
+         sph_gost512_init(&ctx_gost);
         sph_gost512 (&ctx_gost, (const void*) hash, 64);
         sph_gost512_close(&ctx_gost, (void*) hash);
-
-        sph_sha256_init(&ctx_sha);
+         sph_sha256_init(&ctx_sha);
         sph_sha256 (&ctx_sha, (const void*) hash, 64);
         sph_sha256_close(&ctx_sha, (void*) hash);
-
-        memcpy(output, hash, 32);
+         memcpy(output, hash, 32);
 }
